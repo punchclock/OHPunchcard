@@ -1,5 +1,5 @@
 //
-//  OHViewController.h
+//  OHPunchcardLayout.h
 //  OHPunchcard
 //
 //  Created by Oskar Hagberg on 2013-05-16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OHViewController : UIViewController
+@interface OHPunchcardLayout : UICollectionViewFlowLayout
 
 @end
