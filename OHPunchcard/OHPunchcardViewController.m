@@ -36,7 +36,7 @@
     self.punchcardView.dataSource = self;
     self.punchcardView.cellSize = 30.0; //To fit the toolbar
     self.punchcardView.backgroundColor = [UIColor whiteColor];
-//    self.punchcardView.columns = 4;
+//    self.punchcardView.columns = 1;
     NSMutableArray* data = [NSMutableArray array];
     NSMutableArray* colors = [NSMutableArray array];
     for (int i = 0; i<12; i++) {
@@ -57,15 +57,15 @@
 
 #pragma mark - OHPunchcardDataSource
 
-//- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForColumn:(NSInteger)column
-//{
-//    static NSArray* titles = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        titles = @[@"M", @"T", @"O", @"T", @"F", @"L", @"S"];
-//    });
-//    return column < titles.count ? titles[column] : nil;
-//}
+- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForColumn:(NSInteger)column
+{
+    static NSArray* titles = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        titles = @[@"一", @"二", @"三", @"四", @"五", @"六", @"七"];
+    });
+    return column < titles.count ? titles[column] : nil;
+}
 //
 //- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForRow:(NSInteger)row
 //{

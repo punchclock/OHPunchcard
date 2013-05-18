@@ -217,6 +217,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     label.textAlignment = NSTextAlignmentRight;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
+    label.font = [UIFont systemFontOfSize:12.0];
     [self addSubview:label];
     
     self.label = label;
