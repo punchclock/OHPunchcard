@@ -13,9 +13,11 @@
 
 @interface Popup : UIView
 
+@property (nonatomic, strong) UILabel* textLabel;
 @property (nonatomic) CGFloat diameter;
 @property (nonatomic, copy) UIColor* fillColor;
 @property (nonatomic, copy) UIColor* strokeColor;
+@property (nonatomic) CGRect originRect;
 
 @end
 
@@ -44,6 +46,14 @@
     self.opaque = NO;
     self.clipsToBounds = YES;
     self.strokeColor = [UIColor whiteColor];
+    UILabel* textLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    textLabel.backgroundColor = [UIColor clearColor];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    textLabel.textColor = [UIColor blackColor];
+    textLabel.font = [UIFont systemFontOfSize:42.0];
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    [self addSubview:textLabel];
+    self.textLabel = textLabel;
 }
 
 - (void)drawRect:(CGRect)rect
@@ -71,9 +81,38 @@
 
     CGContextSetLineWidth(c, 4);
     CGContextSetStrokeColorWithColor(c, self.strokeColor.CGColor);
-    CGContextStrokeEllipseInRect(c, ellipseRect);
+    CGContextStrokeEllipseInRect(c, CGRectInset(ellipseRect, 2.0, 2.0));
 
     
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.textLabel.frame = self.bounds;
+}
+
+- (void)showInView:(UIView*)view FromRect:(CGRect)rect
+{
+    self.originRect = rect;
+    [view addSubview:self];
+    self.center = CGPointMake(rect.origin.x + rect.size.width/2.0, rect.origin.y + rect.size.height/2.0);
+    self.transform = CGAffineTransformMakeScale(rect.size.width/self.bounds.size.width, rect.size.width/self.bounds.size.height);
+    [UIView animateWithDuration:0.2 animations:^{
+        self.transform = CGAffineTransformIdentity;
+        self.center = self.superview.center;
+    }];
+}
+
+- (void)hide
+{
+
+    [UIView animateWithDuration:0.2 animations:^{
+        self.center = CGPointMake(self.originRect.origin.x + self.originRect.size.width/2.0, self.originRect.origin.y + self.originRect.size.height/2.0);
+        self.transform = CGAffineTransformMakeScale(self.originRect.size.width/self.bounds.size.width, self.originRect.size.width/self.bounds.size.height);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 
@@ -82,6 +121,7 @@
 @interface OHPunchcardViewController () <OHPunchcardDelegate, OHPunchcardDataSource>
 
 @property (nonatomic, strong) OHPunchcardView* punchcardView;
+@property (nonatomic, strong) Popup* popup;
 @property (nonatomic, strong) NSArray* data;
 @property (nonatomic, strong) NSArray* colors;
 
@@ -133,31 +173,31 @@
 
 - (void)punchcardView:(OHPunchcardView *)punchardView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.popup) {
+        [self.popup hide];
+    }
     float value = [self.data[indexPath.section][indexPath.row] floatValue];
     
     CGRect cellFrame = [self.punchcardView offsetFrameForCellAtIndexPath:indexPath];
-    CGFloat circleWidth = cellFrame.size.width * value;
     CGFloat width = self.view.bounds.size.width - 20.0;
     CGRect popupFrame = CGRectMake(0.0, 0.0, width, width);
     Popup* popup = [[Popup alloc] initWithFrame:popupFrame];
+    popup.textLabel.text = [NSString stringWithFormat:@"%.02f", value];
     popup.diameter = 1.0;
     popup.fillColor = [self.colors[indexPath.section][indexPath.row] colorWithAlphaComponent:0.9];
-    popup.center = CGPointMake(cellFrame.origin.x + cellFrame.size.width/2.0, cellFrame.origin.y + cellFrame.size.height/2.0);
     [self.view addSubview:popup];
-    popup.transform = CGAffineTransformMakeScale(circleWidth/popupFrame.size.width, circleWidth/popupFrame.size.height);
-    [UIView animateWithDuration:0.2 animations:^{
-        popup.transform = CGAffineTransformIdentity;
-        popup.center = self.view.center;
-    }];
-    
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [popup addGestureRecognizer:tap];
+    self.popup = popup;
+    
+    [popup showInView:self.view FromRect:cellFrame];
 }
 
 - (void)tap:(UITapGestureRecognizer*)sender
 {
     if (sender.state == UIGestureRecognizerStateEnded){
-        [sender.view removeFromSuperview];
+        Popup* popup = (Popup*)sender.view;
+        [popup hide];
     }
 }
 
