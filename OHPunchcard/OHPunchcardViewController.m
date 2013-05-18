@@ -35,6 +35,8 @@
     self.punchcardView.delegate = self;
     self.punchcardView.dataSource = self;
     self.punchcardView.cellSize = 30.0; //To fit the toolbar
+    self.punchcardView.backgroundColor = [UIColor whiteColor];
+//    self.punchcardView.columns = 4;
     NSMutableArray* data = [NSMutableArray array];
     NSMutableArray* colors = [NSMutableArray array];
     for (int i = 0; i<12; i++) {

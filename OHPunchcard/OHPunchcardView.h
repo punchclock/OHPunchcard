@@ -42,6 +42,7 @@
 @property (nonatomic) NSUInteger rows;
 @property (nonatomic) CGFloat cellSize;
 @property (nonatomic) CGFloat padding;
+@property (nonatomic, copy) UIColor* strokeColor;
 
 - (void)setPadding:(CGFloat)padding animated:(BOOL)animated;
 - (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated;
