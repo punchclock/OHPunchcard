@@ -10,7 +10,8 @@
 #import "OHPunchcardLayout.h"
 
 static NSString* const OHPunchcardViewDefaultCellIdentifier = @"OHPunchcardViewDefaultCellIdentifier";
-static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcardViewWeekendLegendViewIdentifier";
+static NSString* const OHPunchcardViewColumnLegendViewIdentifier = @"OHPunchcardViewColumnLegendViewIdentifier";
+static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardViewRowLegendViewIdentifier";
 
 @interface OHPunchcardDefaultCell : UICollectionViewCell
 
@@ -120,7 +121,7 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
 
 @end
 
-@interface OHPunchcardWeekdayLegend : UICollectionReusableView
+@interface OHPunchcardColumnLegend : UICollectionReusableView
 
 @property (nonatomic) CGFloat gutterWidth;
 @property (nonatomic) CGFloat cellSize;
@@ -129,7 +130,7 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
 
 @end
 
-@implementation OHPunchcardWeekdayLegend
+@implementation OHPunchcardColumnLegend
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -155,12 +156,10 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
     self.clipsToBounds = YES;
     self.backgroundColor = [UIColor clearColor];
     
-    NSArray* weekdays = @[@"M", @"T", @"W", @"T", @"F", @"S", @"S"];
     
     NSMutableArray* labels = [NSMutableArray array];
     for (int i = 0; i<7; i++) {
         UILabel* label = [[UILabel alloc] init];
-        label.text = weekdays[i];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
@@ -182,12 +181,54 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
 
 @end
 
+@interface OHPunchcardRowLegend : UICollectionReusableView
+
+@property (nonatomic, strong) UILabel* label;
+
+@end
+
+@implementation OHPunchcardRowLegend
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
+    self.opaque = NO;
+    self.clipsToBounds = YES;
+    self.backgroundColor = [UIColor clearColor];
+    
+    UILabel* label = [[UILabel alloc] initWithFrame:self.bounds];
+    label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    label.textAlignment = NSTextAlignmentRight;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    [self addSubview:label];
+    
+    self.label = label;
+    
+}
+
+@end
+
 @interface OHPunchcardView () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView* collectionView;
-
-@property (nonatomic) CGFloat cellSize;
-@property (nonatomic) CGFloat padding;
 
 @end
 
@@ -213,23 +254,14 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
 
 - (void)setup
 {
+    self.columns = 7;
+    self.rows = 12;
     self.padding = 2.0;
     self.cellSize = 32.0;
-    CGFloat contentWidth = 7 * _cellSize + 6 * _padding;
-    
-    OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
-    layout.minimumLineSpacing = 0.0;
-    layout.minimumInteritemSpacing = _padding;
-    layout.itemSize = CGSizeMake(_cellSize, _cellSize);
-    layout.headerReferenceSize = CGSizeZero;
-    layout.footerReferenceSize = CGSizeZero;
-    
-    CGFloat gutters = self.bounds.size.width - contentWidth;
-    layout.sectionInset = UIEdgeInsetsMake(_padding/2, gutters/2.0, _padding/2, gutters/2.0);
     
     UICollectionView* collectionView =
     [[UICollectionView alloc] initWithFrame:self.bounds
-                       collectionViewLayout:layout];
+                       collectionViewLayout:[self newLayout]];
     
     collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     collectionView.dataSource = self;
@@ -237,10 +269,72 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
     
     [collectionView registerClass:[OHPunchcardDefaultCell class]
        forCellWithReuseIdentifier:OHPunchcardViewDefaultCellIdentifier];
-    [collectionView registerClass:[OHPunchcardWeekdayLegend class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:OHPunchcardViewWeekendLegendViewIdentifier];
+    [collectionView registerClass:[OHPunchcardColumnLegend class]
+       forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+              withReuseIdentifier:OHPunchcardViewColumnLegendViewIdentifier];
+    [collectionView registerClass:[OHPunchcardRowLegend class]
+       forSupplementaryViewOfKind:OHPunchcardElementKindRowTitle
+              withReuseIdentifier:OHPunchcardViewRowLegendViewIdentifier];
 
     [self addSubview:collectionView];
     self.collectionView = collectionView;
+}
+
+- (void)updateLayout:(BOOL)animated
+{
+    [self.collectionView setCollectionViewLayout:[self newLayout] animated:animated];
+}
+
+- (UICollectionViewLayout*)newLayout
+{
+    CGFloat cellSize = self.cellSize;
+    CGFloat padding = self.padding;
+    
+    CGFloat contentWidth = 7 * cellSize + 6 * padding;
+
+    OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+    layout.minimumLineSpacing = 0.0;
+    layout.minimumInteritemSpacing = padding;
+    layout.itemSize = CGSizeMake(cellSize, cellSize);
+    layout.headerReferenceSize = CGSizeZero;
+    layout.footerReferenceSize = CGSizeZero;
+    
+    CGFloat gutters = self.bounds.size.width - contentWidth;
+    layout.sectionInset = UIEdgeInsetsMake(padding/2, gutters/2.0, padding/2, gutters/2.0);
+    return layout;
+}
+
+- (NSString*)defaultTitleForColumn:(NSInteger)column
+{
+    static NSArray* titles = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{        
+        NSCalendar* cal = [NSCalendar currentCalendar];
+        if (cal.firstWeekday == 1) {
+            titles = @[@"S", @"M", @"T", @"W", @"T", @"F", @"S"];
+        } else {
+            titles = @[@"M", @"T", @"W", @"T", @"F", @"S", @"S"];
+        }
+    });
+    return column < titles.count ? titles[column] : nil;
+}
+
+- (NSString*)defaultTitleForRow:(NSInteger)row
+{
+    static NSArray* titles = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        titles = @[@"0", @"2", @"4", @"6", @"8", @"10", @"12", @"14", @"16", @"18", @"20", @"22"];
+    });
+    return row < titles.count ? titles[row] : nil;
+}
+
+- (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath
+{
+    UICollectionViewLayoutAttributes* attr = [self.collectionView layoutAttributesForItemAtIndexPath:indexPath];
+    CGRect frame = attr.frame;
+    frame = CGRectOffset(frame, 0.0, self.collectionView.contentOffset.y);
+    return frame;
 }
 
 #pragma mark - UICollectionViewDataSource implementation
@@ -255,13 +349,13 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 12;
+    return self.rows;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 7;
+    return self.columns;
 }
 
 
@@ -284,13 +378,34 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
 {
     if ([UICollectionElementKindSectionHeader isEqualToString:kind]) {
         if (indexPath.section == 0) {
-            OHPunchcardWeekdayLegend* legend = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:OHPunchcardViewWeekendLegendViewIdentifier forIndexPath:indexPath];
+            OHPunchcardColumnLegend* legend = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:OHPunchcardViewColumnLegendViewIdentifier forIndexPath:indexPath];
             legend.cellSize = self.cellSize;
             legend.padding = self.padding;
             UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)collectionView.collectionViewLayout;
             legend.gutterWidth = layout.sectionInset.left;
+            BOOL providesTitle = [self.dataSource respondsToSelector:@selector(punchcardView:titleForColumn:)];
+            for (int i = 0; i<7; i++) {
+                NSString* text = nil;
+                if (providesTitle) {
+                    text = [self.dataSource punchcardView:self titleForColumn:i];
+                } else {
+                    text = [self defaultTitleForColumn:i];
+                }
+                UILabel* label = legend.labels[i];
+                label.text = text;
+            }
             return legend;
         }
+    } else if ([OHPunchcardElementKindRowTitle isEqualToString:kind]) {
+        OHPunchcardRowLegend* legend = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:OHPunchcardViewRowLegendViewIdentifier forIndexPath:indexPath];
+        NSString* text = nil;
+        if ([self.dataSource respondsToSelector:@selector(punchcardView:titleForRow:)]) {
+            text = [self.dataSource punchcardView:self titleForRow:indexPath.section];
+        } else {
+            text = [self defaultTitleForRow:indexPath.section];
+        }
+        legend.label.text = text;
+        return legend;
     }
     return nil;
 }
@@ -310,26 +425,5 @@ static NSString* const OHPunchcardViewWeekendLegendViewIdentifier = @"OHPunchcar
         [self.delegate punchcardView:self didDeselectItemAtIndexPath:indexPath];
     }
 }
-
-@end
-
-
-@implementation NSIndexPath (OHPunchcardViewAdditions)
-
-+ (NSIndexPath *)indexPathForHourspan:(NSInteger)hourspan inWeekday:(NSInteger)weekday
-{
-    return [NSIndexPath indexPathForRow:hourspan inSection:weekday];
-}
-
-- (NSInteger)hourspan
-{
-    return self.row;
-}
-
-- (NSInteger)weekday
-{
-    return self.section;
-}
-
 
 @end

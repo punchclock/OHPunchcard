@@ -18,7 +18,8 @@
 
 @optional
 - (UIColor*)punchcardView:(OHPunchcardView*)punchardView colorForIndexPath:(NSIndexPath*)indexPath;
-
+- (NSString*)punchcardView:(OHPunchcardView*)punchardView titleForColumn:(NSInteger)column;
+- (NSString*)punchcardView:(OHPunchcardView*)punchardView titleForRow:(NSInteger)row;
 
 @end
 
@@ -36,15 +37,13 @@
 @property (nonatomic, weak) id<OHPunchcardDataSource> dataSource;
 @property (nonatomic, weak) id<OHPunchcardDelegate> delegate;
 
+@property (nonatomic) NSUInteger columns;
+@property (nonatomic) NSUInteger rows;
+@property (nonatomic) CGFloat cellSize;
+@property (nonatomic) CGFloat padding;
 
-@end
-
-@interface NSIndexPath (OHPunchcardViewAdditions)
-
-+ (NSIndexPath *)indexPathForHourspan:(NSInteger)hourspan inWeekday:(NSInteger)weekday;
-
-@property (nonatomic, readonly) NSInteger hourspan;
-@property (nonatomic, readonly) NSInteger weekday;
+- (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath;
 
 
 @end
+

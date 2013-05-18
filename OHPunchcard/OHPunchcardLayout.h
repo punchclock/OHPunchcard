@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const OHPunchcardElementKindRowTitle;
+
+
 @interface OHPunchcardLayout : UICollectionViewFlowLayout
 
 @end
