@@ -8,6 +8,7 @@
 
 #import "OHPunchcardView.h"
 #import "OHPunchcardLayout.h"
+#import "OHPunchcardPopup.h"
 
 static NSString* const OHPunchcardViewDefaultCellIdentifier = @"OHPunchcardViewDefaultCellIdentifier";
 static NSString* const OHPunchcardViewColumnLegendViewIdentifier = @"OHPunchcardViewColumnLegendViewIdentifier";
@@ -15,11 +16,9 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 
 @interface OHPunchcardDefaultCell : UICollectionViewCell
 
-//@property (nonatomic, weak, readonly) UILabel* label;
 @property (nonatomic) CGFloat diameter; // 0.0 - 1.0
 @property (nonatomic, copy) UIColor* fillColor;
 @property (nonatomic, copy) UIColor* strokeColor;
-@property (nonatomic) BOOL circle;
 
 @end
 
@@ -67,7 +66,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 {
     self.opaque = NO;
     self.clipsToBounds = YES;
-    self.circle = YES;
+    self.strokeColor = [UIColor whiteColor];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -90,22 +89,12 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 //    CGContextSetFillColorWithColor(c, [UIColor whiteColor].CGColor);
 //    CGContextFillRect(c, rect);
 
-    
     CGContextSetFillColorWithColor(c, self.fillColor.CGColor);
-    
-    if (self.circle) {
-        CGContextFillEllipseInRect(c, ellipseRect);
-    } else {
-        CGContextFillRect(c, ellipseRect);
-    }
+    CGContextFillEllipseInRect(c, ellipseRect);
     
     CGContextSetLineWidth(c, 1);
     CGContextSetStrokeColorWithColor(c, self.strokeColor.CGColor);
-    if (self.circle) {
-        CGContextStrokeEllipseInRect(c, ellipseRect);
-    } else {
-        CGContextStrokeRect(c, ellipseRect);
-    }
+    CGContextStrokeEllipseInRect(c, ellipseRect);
     
 }
 
@@ -229,6 +218,9 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 @interface OHPunchcardView () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView* collectionView;
+@property (nonatomic) CGRect layoutBounds;
+@property (nonatomic, strong) OHPunchcardLayout* layout;
+@property (nonatomic, strong) OHPunchcardPopup* popup;
 
 @end
 
@@ -254,16 +246,20 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 
 - (void)setup
 {
-    self.columns = 7;
-    self.rows = 12;
-    self.padding = 2.0;
-    self.cellSize = 32.0;
+    _columns = 7;
+    _rows = 12;
+    _padding = 2.0;
+    _cellSize = 32.0;
+    _layoutBounds = CGRectZero;
     
+    OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+    self.layout = layout;
     UICollectionView* collectionView =
     [[UICollectionView alloc] initWithFrame:self.bounds
-                       collectionViewLayout:[self newLayout]];
+                       collectionViewLayout:layout];
     
     collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    collectionView.translatesAutoresizingMaskIntoConstraints = YES;
     collectionView.dataSource = self;
     collectionView.delegate = self;
     
@@ -280,29 +276,92 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     self.collectionView = collectionView;
 }
 
-- (void)updateLayout:(BOOL)animated
+- (void)layoutSubviews
 {
-    [self.collectionView setCollectionViewLayout:[self newLayout] animated:animated];
+    [super layoutSubviews];
+    if (!CGRectEqualToRect(self.bounds, self.layoutBounds)) {
+        self.layoutBounds = self.bounds;
+        [self configureLayout:self.layout];
+    }
 }
 
-- (UICollectionViewLayout*)newLayout
+- (void)setColumns:(NSUInteger)columns
 {
-    CGFloat cellSize = self.cellSize;
-    CGFloat padding = self.padding;
-    
-    CGFloat contentWidth = 7 * cellSize + 6 * padding;
+    if (_columns != columns) {
+        NSMutableArray* indexPaths = [NSMutableArray array];
+        BOOL add = columns > _columns;
+        if (add) {
+            
+        } else {
+            for (int r = 0; r<self.rows; r++) {
+                for (int c = _columns - 1; c>=columns; c--) {
+                    [indexPaths addObject:[NSIndexPath indexPathForItem:c inSection:r]];
+                }
+            }
+        }
+        _columns = columns;
+        if (add) {
+            
+        } else {
+            [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+        }
 
-    OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+    }
+}
+
+
+
+- (void)setPadding:(CGFloat)padding
+{
+    if (_padding != padding) {
+        _padding = padding;
+        [self configureLayout:self.layout];
+    }
+}
+
+- (void)setPadding:(CGFloat)padding animated:(BOOL)animated
+{
+    if (_padding != padding) {
+        _padding = padding;
+        OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+        self.layout = layout;
+        [self configureLayout:layout];
+        [self.collectionView setCollectionViewLayout:layout animated:animated];
+    }
+}
+
+- (void)setCellSize:(CGFloat)cellSize
+{
+    if (_cellSize != cellSize) {
+        _cellSize = cellSize;
+        [self configureLayout:self.layout];
+    }
+}
+
+- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated
+{
+    if (_cellSize != cellSize) {
+        _cellSize = cellSize;
+        OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+        self.layout = layout;
+        [self configureLayout:layout];
+        [self.collectionView setCollectionViewLayout:layout animated:animated];
+    }
+}
+
+- (void)configureLayout:(OHPunchcardLayout*)layout
+{
+    CGFloat contentWidth = self.columns * self.cellSize + (self.columns - 1) * self.padding;
     layout.minimumLineSpacing = 0.0;
-    layout.minimumInteritemSpacing = padding;
-    layout.itemSize = CGSizeMake(cellSize, cellSize);
+    layout.minimumInteritemSpacing = self.padding;
+    layout.itemSize = CGSizeMake(self.cellSize, self.cellSize);
     layout.headerReferenceSize = CGSizeZero;
     layout.footerReferenceSize = CGSizeZero;
-    
-    CGFloat gutters = self.bounds.size.width - contentWidth;
-    layout.sectionInset = UIEdgeInsetsMake(padding/2, gutters/2.0, padding/2, gutters/2.0);
-    return layout;
+    CGFloat inset = (self.bounds.size.width - contentWidth)/2;
+    layout.sectionInset = UIEdgeInsetsMake(self.padding/2, inset, self.padding/2, inset);
+    [layout invalidateLayout];
 }
+
 
 - (NSString*)defaultTitleForColumn:(NSInteger)column
 {
@@ -333,8 +392,48 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 {
     UICollectionViewLayoutAttributes* attr = [self.collectionView layoutAttributesForItemAtIndexPath:indexPath];
     CGRect frame = attr.frame;
-    frame = CGRectOffset(frame, 0.0, self.collectionView.contentOffset.y);
+    frame = CGRectOffset(frame, 0.0, -self.collectionView.contentOffset.y);
     return frame;
+}
+
+- (void)showPopupForIndexPath:(NSIndexPath*)indexPath
+{
+    if (self.popup) {
+        [self.popup hide];
+    }
+    float diameter = [self.dataSource punchcardView:self fractionForIndexPath:indexPath];
+    UIColor* fillColor = [UIColor whiteColor];
+    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForIndexPath:)]) {
+        fillColor = [self.dataSource punchcardView:self colorForIndexPath:indexPath];
+    }
+    NSString* title = [NSString stringWithFormat:@"%.02f", diameter];
+    if ([self.dataSource respondsToSelector:@selector(punchcardView:titleForPopupAtIndexPath:)]) {
+        title = [self.dataSource punchcardView:self titleForPopupAtIndexPath:indexPath];
+    }
+    
+    CGRect cellFrame = [self offsetFrameForCellAtIndexPath:indexPath];
+    cellFrame = CGRectInset(cellFrame, (1-diameter)*cellFrame.size.width/2, (1-diameter)*cellFrame.size.height/2);
+    CGFloat width = self.bounds.size.width - 20.0;
+    CGRect popupFrame = CGRectMake(0.0, 0.0, width, width);
+    OHPunchcardPopup* popup = [[OHPunchcardPopup alloc] initWithFrame:popupFrame];
+    popup.textLabel.text = title;
+    popup.diameter = 1.0;
+    popup.fillColor = [fillColor colorWithAlphaComponent:0.9];
+    [self addSubview:popup];
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [popup addGestureRecognizer:tap];
+    self.popup = popup;
+    
+    [popup showInView:self FromRect:cellFrame];
+    
+}
+
+- (void)tap:(UITapGestureRecognizer*)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded){
+        OHPunchcardPopup* popup = (OHPunchcardPopup*)sender.view;
+        [popup hide];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource implementation
@@ -362,7 +461,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     OHPunchcardDefaultCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:OHPunchcardViewDefaultCellIdentifier forIndexPath:indexPath];
-    UIColor* fillColor = [UIColor redColor];
+    UIColor* fillColor = [UIColor whiteColor];
     if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForIndexPath:)]) {
         fillColor = [self.dataSource punchcardView:self colorForIndexPath:indexPath];
     }
@@ -414,6 +513,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self showPopupForIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(punchcardView:didSelectItemAtIndexPath:)]) {
         [self.delegate punchcardView:self didSelectItemAtIndexPath:indexPath];
     }

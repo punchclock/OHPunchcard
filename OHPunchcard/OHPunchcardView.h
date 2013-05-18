@@ -18,6 +18,7 @@
 
 @optional
 - (UIColor*)punchcardView:(OHPunchcardView*)punchardView colorForIndexPath:(NSIndexPath*)indexPath;
+- (NSString*)punchcardView:(OHPunchcardView*)punchcardView titleForPopupAtIndexPath:(NSIndexPath*)indexPath;
 - (NSString*)punchcardView:(OHPunchcardView*)punchardView titleForColumn:(NSInteger)column;
 - (NSString*)punchcardView:(OHPunchcardView*)punchardView titleForRow:(NSInteger)row;
 
@@ -41,6 +42,9 @@
 @property (nonatomic) NSUInteger rows;
 @property (nonatomic) CGFloat cellSize;
 @property (nonatomic) CGFloat padding;
+
+- (void)setPadding:(CGFloat)padding animated:(BOOL)animated;
+- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated;
 
 - (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath;
 

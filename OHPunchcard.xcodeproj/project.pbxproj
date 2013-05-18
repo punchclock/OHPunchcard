@@ -26,6 +26,7 @@
 		75CE37081745584E0043CDE1 /* OHPunchcardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE37071745584E0043CDE1 /* OHPunchcardLayout.m */; };
 		75CE370B1745589F0043CDE1 /* OHPunchcardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE370A1745589F0043CDE1 /* OHPunchcardView.m */; };
 		75CE370E174570280043CDE1 /* OHPunchcardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE370D174570270043CDE1 /* OHPunchcardViewController.m */; };
+		75CE37111747F4660043CDE1 /* OHPunchcardPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE37101747F4660043CDE1 /* OHPunchcardPopup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		75CE370A1745589F0043CDE1 /* OHPunchcardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardView.m; sourceTree = "<group>"; };
 		75CE370C174570270043CDE1 /* OHPunchcardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardViewController.h; sourceTree = "<group>"; };
 		75CE370D174570270043CDE1 /* OHPunchcardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardViewController.m; sourceTree = "<group>"; };
+		75CE370F1747F4660043CDE1 /* OHPunchcardPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardPopup.h; sourceTree = "<group>"; };
+		75CE37101747F4660043CDE1 /* OHPunchcardPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardPopup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,17 +128,14 @@
 		75CE36CE1745572F0043CDE1 /* OHPunchcard */ = {
 			isa = PBXGroup;
 			children = (
+				75CE37121747F46D0043CDE1 /* Punchcard */,
 				75CE36D71745572F0043CDE1 /* OHAppDelegate.h */,
 				75CE36D81745572F0043CDE1 /* OHAppDelegate.m */,
+				75CE370C174570270043CDE1 /* OHPunchcardViewController.h */,
+				75CE370D174570270043CDE1 /* OHPunchcardViewController.m */,
 				75CE36E01745572F0043CDE1 /* MainStoryboard_iPhone.storyboard */,
 				75CE36E31745572F0043CDE1 /* MainStoryboard_iPad.storyboard */,
 				75CE36CF1745572F0043CDE1 /* Supporting Files */,
-				75CE37061745584E0043CDE1 /* OHPunchcardLayout.h */,
-				75CE37071745584E0043CDE1 /* OHPunchcardLayout.m */,
-				75CE37091745589F0043CDE1 /* OHPunchcardView.h */,
-				75CE370A1745589F0043CDE1 /* OHPunchcardView.m */,
-				75CE370C174570270043CDE1 /* OHPunchcardViewController.h */,
-				75CE370D174570270043CDE1 /* OHPunchcardViewController.m */,
 			);
 			path = OHPunchcard;
 			sourceTree = "<group>";
@@ -171,6 +171,19 @@
 				75CE36F8174557300043CDE1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75CE37121747F46D0043CDE1 /* Punchcard */ = {
+			isa = PBXGroup;
+			children = (
+				75CE37061745584E0043CDE1 /* OHPunchcardLayout.h */,
+				75CE37071745584E0043CDE1 /* OHPunchcardLayout.m */,
+				75CE37091745589F0043CDE1 /* OHPunchcardView.h */,
+				75CE370A1745589F0043CDE1 /* OHPunchcardView.m */,
+				75CE370F1747F4660043CDE1 /* OHPunchcardPopup.h */,
+				75CE37101747F4660043CDE1 /* OHPunchcardPopup.m */,
+			);
+			name = Punchcard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +303,7 @@
 				75CE37081745584E0043CDE1 /* OHPunchcardLayout.m in Sources */,
 				75CE370B1745589F0043CDE1 /* OHPunchcardView.m in Sources */,
 				75CE370E174570280043CDE1 /* OHPunchcardViewController.m in Sources */,
+				75CE37111747F4660043CDE1 /* OHPunchcardPopup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

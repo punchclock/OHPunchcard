@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OHPunchcardView.h"
 
 @interface OHPunchcardViewController : UIViewController
+@property (weak, nonatomic) IBOutlet OHPunchcardView *punchcardView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+
+- (IBAction)paddingChanged:(id)sender;
+- (IBAction)cellSizeChanged:(id)sender;
+- (IBAction)columnCountChanged:(id)sender;
 
 @end

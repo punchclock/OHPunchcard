@@ -7,121 +7,11 @@
 //
 
 #import "OHPunchcardViewController.h"
-#import "OHPunchcardView.h"
 
 #define ranged_random(min, max) ((float)rand()/RAND_MAX * (max-min)+min)
 
-@interface Popup : UIView
-
-@property (nonatomic, strong) UILabel* textLabel;
-@property (nonatomic) CGFloat diameter;
-@property (nonatomic, copy) UIColor* fillColor;
-@property (nonatomic, copy) UIColor* strokeColor;
-@property (nonatomic) CGRect originRect;
-
-@end
-
-@implementation Popup
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup
-{
-    self.opaque = NO;
-    self.clipsToBounds = YES;
-    self.strokeColor = [UIColor whiteColor];
-    UILabel* textLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    textLabel.backgroundColor = [UIColor clearColor];
-    textLabel.textAlignment = NSTextAlignmentCenter;
-    textLabel.textColor = [UIColor blackColor];
-    textLabel.font = [UIFont systemFontOfSize:42.0];
-    textLabel.adjustsFontSizeToFitWidth = YES;
-    [self addSubview:textLabel];
-    self.textLabel = textLabel;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    
-    CGFloat edge = MIN(rect.size.width, rect.size.height);
-    CGRect ellipseRect = CGRectZero;
-    if (self.diameter == 1.0) {
-        ellipseRect = rect;
-    } else {
-        CGFloat inset = (edge - self.diameter * edge) / 2.0;
-        inset = floorf(inset) + 1.0;
-        ellipseRect = CGRectInset(rect, inset, inset);
-    }
-    
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    CGContextClearRect(c, rect);
-    
-    //Debug
-//        CGContextSetFillColorWithColor(c, [UIColor whiteColor].CGColor);
-//        CGContextFillRect(c, rect);
-    
-    CGContextSetFillColorWithColor(c, self.fillColor.CGColor);    
-    CGContextFillEllipseInRect(c, ellipseRect);
-
-    CGContextSetLineWidth(c, 4);
-    CGContextSetStrokeColorWithColor(c, self.strokeColor.CGColor);
-    CGContextStrokeEllipseInRect(c, CGRectInset(ellipseRect, 2.0, 2.0));
-
-    
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    self.textLabel.frame = self.bounds;
-}
-
-- (void)showInView:(UIView*)view FromRect:(CGRect)rect
-{
-    self.originRect = rect;
-    [view addSubview:self];
-    self.center = CGPointMake(rect.origin.x + rect.size.width/2.0, rect.origin.y + rect.size.height/2.0);
-    self.transform = CGAffineTransformMakeScale(rect.size.width/self.bounds.size.width, rect.size.width/self.bounds.size.height);
-    [UIView animateWithDuration:0.2 animations:^{
-        self.transform = CGAffineTransformIdentity;
-        self.center = self.superview.center;
-    }];
-}
-
-- (void)hide
-{
-
-    [UIView animateWithDuration:0.2 animations:^{
-        self.center = CGPointMake(self.originRect.origin.x + self.originRect.size.width/2.0, self.originRect.origin.y + self.originRect.size.height/2.0);
-        self.transform = CGAffineTransformMakeScale(self.originRect.size.width/self.bounds.size.width, self.originRect.size.width/self.bounds.size.height);
-    } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-    }];
-}
-
-
-@end
-
 @interface OHPunchcardViewController () <OHPunchcardDelegate, OHPunchcardDataSource>
 
-@property (nonatomic, strong) OHPunchcardView* punchcardView;
-@property (nonatomic, strong) Popup* popup;
 @property (nonatomic, strong) NSArray* data;
 @property (nonatomic, strong) NSArray* colors;
 
@@ -142,15 +32,9 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
-    OHPunchcardView* punchcardView = [[OHPunchcardView alloc] initWithFrame:self.view.bounds];
-    punchcardView.delegate = self;
-    punchcardView.dataSource = self;
-    punchcardView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    punchcardView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:punchcardView];
-    self.punchcardView = punchcardView;
-    
+    self.punchcardView.delegate = self;
+    self.punchcardView.dataSource = self;
+    self.punchcardView.cellSize = 30.0; //To fit the toolbar
     NSMutableArray* data = [NSMutableArray array];
     NSMutableArray* colors = [NSMutableArray array];
     for (int i = 0; i<12; i++) {
@@ -167,38 +51,6 @@
     self.data = data;
     self.colors = colors;
 
-}
-
-#pragma mark - OHPunchcardDelegate
-
-- (void)punchcardView:(OHPunchcardView *)punchardView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.popup) {
-        [self.popup hide];
-    }
-    float value = [self.data[indexPath.section][indexPath.row] floatValue];
-    
-    CGRect cellFrame = [self.punchcardView offsetFrameForCellAtIndexPath:indexPath];
-    CGFloat width = self.view.bounds.size.width - 20.0;
-    CGRect popupFrame = CGRectMake(0.0, 0.0, width, width);
-    Popup* popup = [[Popup alloc] initWithFrame:popupFrame];
-    popup.textLabel.text = [NSString stringWithFormat:@"%.02f", value];
-    popup.diameter = 1.0;
-    popup.fillColor = [self.colors[indexPath.section][indexPath.row] colorWithAlphaComponent:0.9];
-    [self.view addSubview:popup];
-    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [popup addGestureRecognizer:tap];
-    self.popup = popup;
-    
-    [popup showInView:self.view FromRect:cellFrame];
-}
-
-- (void)tap:(UITapGestureRecognizer*)sender
-{
-    if (sender.state == UIGestureRecognizerStateEnded){
-        Popup* popup = (Popup*)sender.view;
-        [popup hide];
-    }
 }
 
 #pragma mark - OHPunchcardDataSource
@@ -223,6 +75,11 @@
 //    return row < titles.count ? titles[row] : nil;
 //}
 
+//- (NSString*)punchcardView:(OHPunchcardView*)punchcardView titleForPopupAtIndexPath:(NSIndexPath*)indexPath
+//{
+//    return [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
+//}
+
 - (float)punchcardView:(OHPunchcardView*)punchardView fractionForIndexPath:(NSIndexPath*)indexPath
 {
     return [self.data[indexPath.section][indexPath.row] floatValue];
@@ -244,5 +101,31 @@
     return [UIColor colorWithHue:h saturation:s brightness:b alpha:1.0];
 }
 
+- (IBAction)paddingChanged:(UISegmentedControl*)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self.punchcardView setPadding:2 animated:YES];
+//        self.punchcardView.padding = 2;
+    } else {
+        [self.punchcardView setPadding:10 animated:YES];
+//        self.punchcardView.padding = 10;
+    }
+}
 
+- (IBAction)cellSizeChanged:(UISegmentedControl*)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self.punchcardView setCellSize:12.0 animated:YES];
+//        self.punchcardView.cellSize = 12.0;
+    } else if (sender.selectedSegmentIndex == 1) {
+        [self.punchcardView setCellSize:32.0 animated:YES];
+//        self.punchcardView.cellSize = 32.0;
+    } else {
+        [self.punchcardView setCellSize:44.0 animated:YES];
+//        self.punchcardView.cellSize = 44.0;
+    }
+
+}
+
+- (IBAction)columnCountChanged:(id)sender {
+    self.punchcardView.columns = 1;
+}
 @end
