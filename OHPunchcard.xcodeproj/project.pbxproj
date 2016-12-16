@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		53643A9C1E044ECF0003DEFF /* OHPunchcardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643A9B1E044ECF0003DEFF /* OHPunchcardTests.m */; };
 		53643AAA1E044F330003DEFF /* OHPunchcardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643AA91E044F330003DEFF /* OHPunchcardUITests.m */; };
+		53643AB31E0489F90003DEFF /* OHPunchcardDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643AB21E0489F90003DEFF /* OHPunchcardDefaultCell.m */; };
+		53643AB61E048AE60003DEFF /* OHPunchcardColumnLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643AB51E048AE60003DEFF /* OHPunchcardColumnLegend.m */; };
+		53643AB91E048B6C0003DEFF /* OHPunchcardRowLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643AB81E048B6C0003DEFF /* OHPunchcardRowLegend.m */; };
 		75CE36C91745572F0043CDE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36C81745572F0043CDE1 /* UIKit.framework */; };
 		75CE36CB1745572F0043CDE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36CA1745572F0043CDE1 /* Foundation.framework */; };
 		75CE36CD1745572F0043CDE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36CC1745572F0043CDE1 /* CoreGraphics.framework */; };
@@ -49,6 +52,12 @@
 		53643AA71E044F330003DEFF /* OHPunchcardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OHPunchcardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53643AA91E044F330003DEFF /* OHPunchcardUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardUITests.m; sourceTree = "<group>"; };
 		53643AAB1E044F340003DEFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53643AB11E0489F90003DEFF /* OHPunchcardDefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardDefaultCell.h; sourceTree = "<group>"; };
+		53643AB21E0489F90003DEFF /* OHPunchcardDefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardDefaultCell.m; sourceTree = "<group>"; };
+		53643AB41E048AE60003DEFF /* OHPunchcardColumnLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardColumnLegend.h; sourceTree = "<group>"; };
+		53643AB51E048AE60003DEFF /* OHPunchcardColumnLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardColumnLegend.m; sourceTree = "<group>"; };
+		53643AB71E048B6C0003DEFF /* OHPunchcardRowLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardRowLegend.h; sourceTree = "<group>"; };
+		53643AB81E048B6C0003DEFF /* OHPunchcardRowLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardRowLegend.m; sourceTree = "<group>"; };
 		75CE36C51745572F0043CDE1 /* OHPunchcard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OHPunchcard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CE36C81745572F0043CDE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		75CE36CA1745572F0043CDE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -187,6 +196,12 @@
 				75CE37071745584E0043CDE1 /* OHPunchcardLayout.m */,
 				75CE37091745589F0043CDE1 /* OHPunchcardView.h */,
 				75CE370A1745589F0043CDE1 /* OHPunchcardView.m */,
+				53643AB11E0489F90003DEFF /* OHPunchcardDefaultCell.h */,
+				53643AB21E0489F90003DEFF /* OHPunchcardDefaultCell.m */,
+				53643AB41E048AE60003DEFF /* OHPunchcardColumnLegend.h */,
+				53643AB51E048AE60003DEFF /* OHPunchcardColumnLegend.m */,
+				53643AB71E048B6C0003DEFF /* OHPunchcardRowLegend.h */,
+				53643AB81E048B6C0003DEFF /* OHPunchcardRowLegend.m */,
 				75CE370F1747F4660043CDE1 /* OHPunchcardPopup.h */,
 				75CE37101747F4660043CDE1 /* OHPunchcardPopup.m */,
 			);
@@ -340,6 +355,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53643AB61E048AE60003DEFF /* OHPunchcardColumnLegend.m in Sources */,
+				53643AB31E0489F90003DEFF /* OHPunchcardDefaultCell.m in Sources */,
+				53643AB91E048B6C0003DEFF /* OHPunchcardRowLegend.m in Sources */,
 				75CE36D51745572F0043CDE1 /* main.m in Sources */,
 				75CE36D91745572F0043CDE1 /* OHAppDelegate.m in Sources */,
 				75CE37081745584E0043CDE1 /* OHPunchcardLayout.m in Sources */,
@@ -627,6 +645,7 @@
 				53643AA21E044ECF0003DEFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		53643AAE1E044F340003DEFF /* Build configuration list for PBXNativeTarget "OHPunchcardUITests" */ = {
 			isa = XCConfigurationList;
@@ -635,6 +654,7 @@
 				53643AB01E044F340003DEFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75CE36C01745572F0043CDE1 /* Build configuration list for PBXProject "OHPunchcard" */ = {
 			isa = XCConfigurationList;

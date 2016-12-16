@@ -12,6 +12,27 @@
 @protocol OHPunchcardDataSource;
 @protocol OHPunchcardDelegate;
 
+@interface OHPunchcardView : UIView
+
+@property (nonatomic, weak) id<OHPunchcardDataSource> dataSource;
+@property (nonatomic, weak) id<OHPunchcardDelegate> delegate;
+
+@property (nonatomic) NSUInteger columns;
+@property (nonatomic) NSUInteger rows;
+@property (nonatomic) CGFloat cellSize;
+@property (nonatomic) CGFloat padding;
+@property (nonatomic, copy) UIColor* strokeColor;
+
+- (void)setPadding:(CGFloat)padding animated:(BOOL)animated;
+- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated;
+
+- (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath;
+
+@end
+
+
+#pragma mark - Protocol definitions
+
 @protocol OHPunchcardDataSource <NSObject>
 
 - (float)punchcardView:(OHPunchcardView*)punchcardView fractionForItemAtIndexPath:(NSIndexPath*)indexPath;
@@ -29,26 +50,6 @@
 @optional
 - (void)punchcardView:(OHPunchcardView*)punchcardView didSelectItemAtIndexPath:(NSIndexPath*)indexPath;
 - (void)punchcardView:(OHPunchcardView*)punchcardView didDeselectItemAtIndexPath:(NSIndexPath*)indexPath;
-
-
-@end
-
-@interface OHPunchcardView : UIView
-
-@property (nonatomic, weak) id<OHPunchcardDataSource> dataSource;
-@property (nonatomic, weak) id<OHPunchcardDelegate> delegate;
-
-@property (nonatomic) NSUInteger columns;
-@property (nonatomic) NSUInteger rows;
-@property (nonatomic) CGFloat cellSize;
-@property (nonatomic) CGFloat padding;
-@property (nonatomic, copy) UIColor* strokeColor;
-
-- (void)setPadding:(CGFloat)padding animated:(BOOL)animated;
-- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated;
-
-- (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath;
-
 
 @end
 
