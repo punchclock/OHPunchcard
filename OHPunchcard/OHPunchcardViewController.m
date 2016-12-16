@@ -57,7 +57,7 @@
 
 #pragma mark - OHPunchcardDataSource
 
-- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForColumn:(NSInteger)column
+- (NSString*)punchcardView:(OHPunchcardView *)punchcardView titleForColumn:(NSInteger)column
 {
     static NSArray* titles = nil;
     static dispatch_once_t onceToken;
@@ -67,7 +67,7 @@
     return column < titles.count ? titles[column] : nil;
 }
 //
-//- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForRow:(NSInteger)row
+//- (NSString*)punchcardView:(OHPunchcardView *)punchcardView titleForRow:(NSInteger)row
 //{
 //    static NSArray* titles = nil;
 //    static dispatch_once_t onceToken;
@@ -82,12 +82,12 @@
 //    return [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
 //}
 
-- (float)punchcardView:(OHPunchcardView*)punchardView fractionForIndexPath:(NSIndexPath*)indexPath
+- (float)punchcardView:(OHPunchcardView*)punchcardView fractionForItemAtIndexPath:(NSIndexPath*)indexPath
 {
     return [self.data[indexPath.section][indexPath.row] floatValue];
 }
 
-- (UIColor*)punchcardView:(OHPunchcardView*)punchardView colorForIndexPath:(NSIndexPath*)indexPath
+- (UIColor*)punchcardView:(OHPunchcardView*)punchcardView colorForItemAtIndexPath:(NSIndexPath*)indexPath
 {
     return self.colors[indexPath.section][indexPath.row];
 }

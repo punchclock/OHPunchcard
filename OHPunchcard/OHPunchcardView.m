@@ -404,10 +404,10 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     if (self.popup) {
         [self.popup hide];
     }
-    float diameter = [self.dataSource punchcardView:self fractionForIndexPath:indexPath];
+    float diameter = [self.dataSource punchcardView:self fractionForItemAtIndexPath:indexPath];
     UIColor* fillColor = [UIColor whiteColor];
-    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForIndexPath:)]) {
-        fillColor = [self.dataSource punchcardView:self colorForIndexPath:indexPath];
+    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForItemAtIndexPath:)]) {
+        fillColor = [self.dataSource punchcardView:self colorForItemAtIndexPath:indexPath];
     }
     NSString* title = [NSString stringWithFormat:@"%.02f", diameter];
     if ([self.dataSource respondsToSelector:@selector(punchcardView:titleForPopupAtIndexPath:)]) {
@@ -467,13 +467,13 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 {
     OHPunchcardDefaultCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:OHPunchcardViewDefaultCellIdentifier forIndexPath:indexPath];
     UIColor* fillColor = [UIColor whiteColor];
-    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForIndexPath:)]) {
-        fillColor = [self.dataSource punchcardView:self colorForIndexPath:indexPath];
+    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForItemAtIndexPath:)]) {
+        fillColor = [self.dataSource punchcardView:self colorForItemAtIndexPath:indexPath];
     }
     cell.fillColor = fillColor;
     cell.strokeColor = self.strokeColor;
     
-    float diameter = [self.dataSource punchcardView:self fractionForIndexPath:indexPath];
+    float diameter = [self.dataSource punchcardView:self fractionForItemAtIndexPath:indexPath];
     cell.diameter = diameter;
     
     return cell;
