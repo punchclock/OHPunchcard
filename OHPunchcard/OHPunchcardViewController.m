@@ -121,7 +121,11 @@
     }
 }
 
-- (IBAction)columnCountChanged:(id)sender {
-    self.punchcardView.columns = 1;
+- (IBAction)columnCountChanged:(UISegmentedControl *)sender {
+    // Linking the column count to the text on the button is not the best,
+    // but it's fine enough for a demo app
+    NSInteger columnCount = [[[[sender titleForSegmentAtIndex:[sender selectedSegmentIndex]] componentsSeparatedByString:@": "] lastObject] integerValue];
+    self.punchcardView.columns = columnCount > 0 ? columnCount : 1;
 }
+
 @end
