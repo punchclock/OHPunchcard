@@ -103,28 +103,22 @@
     return [UIColor colorWithHue:h saturation:s brightness:b alpha:1.0];
 }
 
-- (IBAction)paddingChanged:(UISegmentedControl*)sender {
+- (IBAction)paddingChanged:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
         [self.punchcardView setPadding:2 animated:YES];
-//        self.punchcardView.padding = 2;
     } else {
         [self.punchcardView setPadding:10 animated:YES];
-//        self.punchcardView.padding = 10;
     }
 }
 
-- (IBAction)cellSizeChanged:(UISegmentedControl*)sender {
+- (IBAction)cellSizeChanged:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
         [self.punchcardView setCellSize:12.0 animated:YES];
-//        self.punchcardView.cellSize = 12.0;
     } else if (sender.selectedSegmentIndex == 1) {
         [self.punchcardView setCellSize:32.0 animated:YES];
-//        self.punchcardView.cellSize = 32.0;
     } else {
         [self.punchcardView setCellSize:44.0 animated:YES];
-//        self.punchcardView.cellSize = 44.0;
     }
-
 }
 
 - (IBAction)columnCountChanged:(id)sender {

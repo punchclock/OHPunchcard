@@ -37,7 +37,7 @@
                                                 <segment title="p: 10"/>
                                             </segments>
                                             <connections>
-                                                <action selector="paddingChanged:" destination="2" eventType="valueChanged" id="unt-BQ-dCD"/>
+                                                <action selector="paddingChanged:" destination="2" eventType="valueChanged" id="Uch-Wy-uPm"/>
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
@@ -51,7 +51,7 @@
                                                 <segment title="w: 44"/>
                                             </segments>
                                             <connections>
-                                                <action selector="cellSizeChanged:" destination="2" eventType="valueChanged" id="X7u-oe-OAf"/>
+                                                <action selector="cellSizeChanged:" destination="2" eventType="valueChanged" id="Dgn-K6-MWK"/>
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
@@ -64,7 +64,7 @@
                                                 <segment title="c: 1"/>
                                             </segments>
                                             <connections>
-                                                <action selector="columnCountChanged:" destination="2" eventType="valueChanged" id="Y4v-mU-sfT"/>
+                                                <action selector="columnCountChanged:" destination="2" eventType="valueChanged" id="umK-IA-CFU"/>
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
@@ -83,8 +83,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="punchcardView" destination="5HH-Zv-ari" id="JhX-vW-azT"/>
-                        <outlet property="toolbar" destination="PeU-bp-dwP" id="U1r-cJ-t3R"/>
+                        <outlet property="punchcardView" destination="5HH-Zv-ari" id="IzP-rf-Ul3"/>
+                        <outlet property="toolbar" destination="PeU-bp-dwP" id="l1y-db-7cC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
