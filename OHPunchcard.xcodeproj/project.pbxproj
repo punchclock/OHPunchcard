@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53643A9C1E044ECF0003DEFF /* OHPunchcardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643A9B1E044ECF0003DEFF /* OHPunchcardTests.m */; };
+		53643AAA1E044F330003DEFF /* OHPunchcardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 53643AA91E044F330003DEFF /* OHPunchcardUITests.m */; };
 		75CE36C91745572F0043CDE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36C81745572F0043CDE1 /* UIKit.framework */; };
 		75CE36CB1745572F0043CDE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36CA1745572F0043CDE1 /* Foundation.framework */; };
 		75CE36CD1745572F0043CDE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36CC1745572F0043CDE1 /* CoreGraphics.framework */; };
@@ -16,13 +18,7 @@
 		75CE36DB1745572F0043CDE1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36DA1745572F0043CDE1 /* Default.png */; };
 		75CE36DD1745572F0043CDE1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36DC1745572F0043CDE1 /* Default@2x.png */; };
 		75CE36DF1745572F0043CDE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36DE1745572F0043CDE1 /* Default-568h@2x.png */; };
-		75CE36E21745572F0043CDE1 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36E01745572F0043CDE1 /* MainStoryboard_iPhone.storyboard */; };
-		75CE36E51745572F0043CDE1 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36E31745572F0043CDE1 /* MainStoryboard_iPad.storyboard */; };
-		75CE36F0174557300043CDE1 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36EF174557300043CDE1 /* SenTestingKit.framework */; };
-		75CE36F1174557300043CDE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36C81745572F0043CDE1 /* UIKit.framework */; };
-		75CE36F2174557300043CDE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CE36CA1745572F0043CDE1 /* Foundation.framework */; };
-		75CE36FA174557300043CDE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36F8174557300043CDE1 /* InfoPlist.strings */; };
-		75CE36FD174557300043CDE1 /* OHPunchcardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE36FC174557300043CDE1 /* OHPunchcardTests.m */; };
+		75CE36E21745572F0043CDE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CE36E01745572F0043CDE1 /* Main.storyboard */; };
 		75CE37081745584E0043CDE1 /* OHPunchcardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE37071745584E0043CDE1 /* OHPunchcardLayout.m */; };
 		75CE370B1745589F0043CDE1 /* OHPunchcardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE370A1745589F0043CDE1 /* OHPunchcardView.m */; };
 		75CE370E174570280043CDE1 /* OHPunchcardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE370D174570270043CDE1 /* OHPunchcardViewController.m */; };
@@ -30,7 +26,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		75CE36F3174557300043CDE1 /* PBXContainerItemProxy */ = {
+		53643A9E1E044ECF0003DEFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CE36BD1745572F0043CDE1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75CE36C41745572F0043CDE1;
+			remoteInfo = OHPunchcard;
+		};
+		53643AAC1E044F340003DEFF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75CE36BD1745572F0043CDE1 /* Project object */;
 			proxyType = 1;
@@ -40,6 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53643A991E044ECE0003DEFF /* OHPunchcardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OHPunchcardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		53643A9B1E044ECF0003DEFF /* OHPunchcardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardTests.m; sourceTree = "<group>"; };
+		53643A9D1E044ECF0003DEFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53643AA71E044F330003DEFF /* OHPunchcardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OHPunchcardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		53643AA91E044F330003DEFF /* OHPunchcardUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardUITests.m; sourceTree = "<group>"; };
+		53643AAB1E044F340003DEFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75CE36C51745572F0043CDE1 /* OHPunchcard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OHPunchcard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CE36C81745572F0043CDE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		75CE36CA1745572F0043CDE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,14 +62,8 @@
 		75CE36DA1745572F0043CDE1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		75CE36DC1745572F0043CDE1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		75CE36DE1745572F0043CDE1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		75CE36E11745572F0043CDE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		75CE36E41745572F0043CDE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		75CE36EE174557300043CDE1 /* OHPunchcardTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OHPunchcardTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75CE36E11745572F0043CDE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		75CE36EF174557300043CDE1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		75CE36F7174557300043CDE1 /* OHPunchcardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OHPunchcardTests-Info.plist"; sourceTree = "<group>"; };
-		75CE36F9174557300043CDE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		75CE36FB174557300043CDE1 /* OHPunchcardTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OHPunchcardTests.h; sourceTree = "<group>"; };
-		75CE36FC174557300043CDE1 /* OHPunchcardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardTests.m; sourceTree = "<group>"; };
 		75CE37061745584E0043CDE1 /* OHPunchcardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardLayout.h; sourceTree = "<group>"; };
 		75CE37071745584E0043CDE1 /* OHPunchcardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHPunchcardLayout.m; sourceTree = "<group>"; };
 		75CE37091745589F0043CDE1 /* OHPunchcardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHPunchcardView.h; sourceTree = "<group>"; };
@@ -72,6 +75,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		53643A961E044ECE0003DEFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53643AA41E044F330003DEFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CE36C21745572F0043CDE1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,24 +99,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		75CE36EA174557300043CDE1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75CE36F0174557300043CDE1 /* SenTestingKit.framework in Frameworks */,
-				75CE36F1174557300043CDE1 /* UIKit.framework in Frameworks */,
-				75CE36F2174557300043CDE1 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53643A9A1E044ECF0003DEFF /* OHPunchcardTests */ = {
+			isa = PBXGroup;
+			children = (
+				53643A9B1E044ECF0003DEFF /* OHPunchcardTests.m */,
+				53643A9D1E044ECF0003DEFF /* Info.plist */,
+			);
+			path = OHPunchcardTests;
+			sourceTree = "<group>";
+		};
+		53643AA81E044F330003DEFF /* OHPunchcardUITests */ = {
+			isa = PBXGroup;
+			children = (
+				53643AA91E044F330003DEFF /* OHPunchcardUITests.m */,
+				53643AAB1E044F340003DEFF /* Info.plist */,
+			);
+			path = OHPunchcardUITests;
+			sourceTree = "<group>";
+		};
 		75CE36BC1745572F0043CDE1 = {
 			isa = PBXGroup;
 			children = (
 				75CE36CE1745572F0043CDE1 /* OHPunchcard */,
-				75CE36F5174557300043CDE1 /* OHPunchcardTests */,
+				53643A9A1E044ECF0003DEFF /* OHPunchcardTests */,
+				53643AA81E044F330003DEFF /* OHPunchcardUITests */,
 				75CE36C71745572F0043CDE1 /* Frameworks */,
 				75CE36C61745572F0043CDE1 /* Products */,
 			);
@@ -109,7 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				75CE36C51745572F0043CDE1 /* OHPunchcard.app */,
-				75CE36EE174557300043CDE1 /* OHPunchcardTests.octest */,
+				53643A991E044ECE0003DEFF /* OHPunchcardTests.xctest */,
+				53643AA71E044F330003DEFF /* OHPunchcardUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,12 +156,9 @@
 			isa = PBXGroup;
 			children = (
 				75CE37121747F46D0043CDE1 /* Punchcard */,
-				75CE36D71745572F0043CDE1 /* OHAppDelegate.h */,
-				75CE36D81745572F0043CDE1 /* OHAppDelegate.m */,
 				75CE370C174570270043CDE1 /* OHPunchcardViewController.h */,
 				75CE370D174570270043CDE1 /* OHPunchcardViewController.m */,
-				75CE36E01745572F0043CDE1 /* MainStoryboard_iPhone.storyboard */,
-				75CE36E31745572F0043CDE1 /* MainStoryboard_iPad.storyboard */,
+				75CE36E01745572F0043CDE1 /* Main.storyboard */,
 				75CE36CF1745572F0043CDE1 /* Supporting Files */,
 			);
 			path = OHPunchcard;
@@ -143,6 +167,8 @@
 		75CE36CF1745572F0043CDE1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				75CE36D71745572F0043CDE1 /* OHAppDelegate.h */,
+				75CE36D81745572F0043CDE1 /* OHAppDelegate.m */,
 				75CE36D01745572F0043CDE1 /* OHPunchcard-Info.plist */,
 				75CE36D11745572F0043CDE1 /* InfoPlist.strings */,
 				75CE36D41745572F0043CDE1 /* main.m */,
@@ -150,25 +176,6 @@
 				75CE36DA1745572F0043CDE1 /* Default.png */,
 				75CE36DC1745572F0043CDE1 /* Default@2x.png */,
 				75CE36DE1745572F0043CDE1 /* Default-568h@2x.png */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		75CE36F5174557300043CDE1 /* OHPunchcardTests */ = {
-			isa = PBXGroup;
-			children = (
-				75CE36FB174557300043CDE1 /* OHPunchcardTests.h */,
-				75CE36FC174557300043CDE1 /* OHPunchcardTests.m */,
-				75CE36F6174557300043CDE1 /* Supporting Files */,
-			);
-			path = OHPunchcardTests;
-			sourceTree = "<group>";
-		};
-		75CE36F6174557300043CDE1 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				75CE36F7174557300043CDE1 /* OHPunchcardTests-Info.plist */,
-				75CE36F8174557300043CDE1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -189,6 +196,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		53643A981E044ECE0003DEFF /* OHPunchcardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53643AA01E044ECF0003DEFF /* Build configuration list for PBXNativeTarget "OHPunchcardTests" */;
+			buildPhases = (
+				53643A951E044ECE0003DEFF /* Sources */,
+				53643A961E044ECE0003DEFF /* Frameworks */,
+				53643A971E044ECE0003DEFF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				53643A9F1E044ECF0003DEFF /* PBXTargetDependency */,
+			);
+			name = OHPunchcardTests;
+			productName = OHPunchcardTests;
+			productReference = 53643A991E044ECE0003DEFF /* OHPunchcardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		53643AA61E044F330003DEFF /* OHPunchcardUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53643AAE1E044F340003DEFF /* Build configuration list for PBXNativeTarget "OHPunchcardUITests" */;
+			buildPhases = (
+				53643AA31E044F330003DEFF /* Sources */,
+				53643AA41E044F330003DEFF /* Frameworks */,
+				53643AA51E044F330003DEFF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				53643AAD1E044F340003DEFF /* PBXTargetDependency */,
+			);
+			name = OHPunchcardUITests;
+			productName = OHPunchcardUITests;
+			productReference = 53643AA71E044F330003DEFF /* OHPunchcardUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		75CE36C41745572F0043CDE1 /* OHPunchcard */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75CE3700174557300043CDE1 /* Build configuration list for PBXNativeTarget "OHPunchcard" */;
@@ -206,25 +249,6 @@
 			productReference = 75CE36C51745572F0043CDE1 /* OHPunchcard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		75CE36ED174557300043CDE1 /* OHPunchcardTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 75CE3703174557300043CDE1 /* Build configuration list for PBXNativeTarget "OHPunchcardTests" */;
-			buildPhases = (
-				75CE36E9174557300043CDE1 /* Sources */,
-				75CE36EA174557300043CDE1 /* Frameworks */,
-				75CE36EB174557300043CDE1 /* Resources */,
-				75CE36EC174557300043CDE1 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				75CE36F4174557300043CDE1 /* PBXTargetDependency */,
-			);
-			name = OHPunchcardTests;
-			productName = OHPunchcardTests;
-			productReference = 75CE36EE174557300043CDE1 /* OHPunchcardTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -232,8 +256,20 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = OH;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Oskar Hagberg";
+				TargetAttributes = {
+					53643A981E044ECE0003DEFF = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75CE36C41745572F0043CDE1;
+					};
+					53643AA61E044F330003DEFF = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75CE36C41745572F0043CDE1;
+					};
+				};
 			};
 			buildConfigurationList = 75CE36C01745572F0043CDE1 /* Build configuration list for PBXProject "OHPunchcard" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -248,12 +284,27 @@
 			projectRoot = "";
 			targets = (
 				75CE36C41745572F0043CDE1 /* OHPunchcard */,
-				75CE36ED174557300043CDE1 /* OHPunchcardTests */,
+				53643A981E044ECE0003DEFF /* OHPunchcardTests */,
+				53643AA61E044F330003DEFF /* OHPunchcardUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		53643A971E044ECE0003DEFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53643AA51E044F330003DEFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CE36C31745572F0043CDE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,38 +313,29 @@
 				75CE36DB1745572F0043CDE1 /* Default.png in Resources */,
 				75CE36DD1745572F0043CDE1 /* Default@2x.png in Resources */,
 				75CE36DF1745572F0043CDE1 /* Default-568h@2x.png in Resources */,
-				75CE36E21745572F0043CDE1 /* MainStoryboard_iPhone.storyboard in Resources */,
-				75CE36E51745572F0043CDE1 /* MainStoryboard_iPad.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75CE36EB174557300043CDE1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75CE36FA174557300043CDE1 /* InfoPlist.strings in Resources */,
+				75CE36E21745572F0043CDE1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		75CE36EC174557300043CDE1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
+/* Begin PBXSourcesBuildPhase section */
+		53643A951E044ECE0003DEFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
+				53643A9C1E044ECF0003DEFF /* OHPunchcardTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
+		53643AA31E044F330003DEFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53643AAA1E044F330003DEFF /* OHPunchcardUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CE36C11745572F0043CDE1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,21 +349,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		75CE36E9174557300043CDE1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75CE36FD174557300043CDE1 /* OHPunchcardTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		75CE36F4174557300043CDE1 /* PBXTargetDependency */ = {
+		53643A9F1E044ECF0003DEFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 75CE36C41745572F0043CDE1 /* OHPunchcard */;
-			targetProxy = 75CE36F3174557300043CDE1 /* PBXContainerItemProxy */;
+			targetProxy = 53643A9E1E044ECF0003DEFF /* PBXContainerItemProxy */;
+		};
+		53643AAD1E044F340003DEFF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75CE36C41745572F0043CDE1 /* OHPunchcard */;
+			targetProxy = 53643AAC1E044F340003DEFF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -334,33 +373,145 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		75CE36E01745572F0043CDE1 /* MainStoryboard_iPhone.storyboard */ = {
+		75CE36E01745572F0043CDE1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				75CE36E11745572F0043CDE1 /* en */,
 			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		75CE36E31745572F0043CDE1 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				75CE36E41745572F0043CDE1 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		75CE36F8174557300043CDE1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				75CE36F9174557300043CDE1 /* en */,
-			);
-			name = InfoPlist.strings;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		53643AA11E044ECF0003DEFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = OHPunchcardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oskarhagberg.OHPunchcardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OHPunchcard.app/OHPunchcard";
+			};
+			name = Debug;
+		};
+		53643AA21E044ECF0003DEFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = OHPunchcardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oskarhagberg.OHPunchcardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OHPunchcard.app/OHPunchcard";
+			};
+			name = Release;
+		};
+		53643AAF1E044F340003DEFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = OHPunchcardUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oskarhagberg.OHPunchcardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = OHPunchcard;
+			};
+			name = Debug;
+		};
+		53643AB01E044F340003DEFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = OHPunchcardUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oskarhagberg.OHPunchcardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = OHPunchcard;
+			};
+			name = Release;
+		};
 		75CE36FE174557300043CDE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -368,25 +519,35 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -400,18 +561,27 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -422,9 +592,12 @@
 		75CE3701174557300043CDE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OHPunchcard/OHPunchcard-Prefix.pch";
 				INFOPLIST_FILE = "OHPunchcard/OHPunchcard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oskarhagberg.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -433,51 +606,36 @@
 		75CE3702174557300043CDE1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OHPunchcard/OHPunchcard-Prefix.pch";
 				INFOPLIST_FILE = "OHPunchcard/OHPunchcard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oskarhagberg.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		75CE3704174557300043CDE1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OHPunchcard.app/OHPunchcard";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OHPunchcard/OHPunchcard-Prefix.pch";
-				INFOPLIST_FILE = "OHPunchcardTests/OHPunchcardTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		75CE3705174557300043CDE1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OHPunchcard.app/OHPunchcard";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OHPunchcard/OHPunchcard-Prefix.pch";
-				INFOPLIST_FILE = "OHPunchcardTests/OHPunchcardTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		53643AA01E044ECF0003DEFF /* Build configuration list for PBXNativeTarget "OHPunchcardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53643AA11E044ECF0003DEFF /* Debug */,
+				53643AA21E044ECF0003DEFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		53643AAE1E044F340003DEFF /* Build configuration list for PBXNativeTarget "OHPunchcardUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53643AAF1E044F340003DEFF /* Debug */,
+				53643AB01E044F340003DEFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		75CE36C01745572F0043CDE1 /* Build configuration list for PBXProject "OHPunchcard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -494,14 +652,7 @@
 				75CE3702174557300043CDE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		75CE3703174557300043CDE1 /* Build configuration list for PBXNativeTarget "OHPunchcardTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				75CE3704174557300043CDE1 /* Debug */,
-				75CE3705174557300043CDE1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -2,31 +2,38 @@
 //  OHPunchcardTests.m
 //  OHPunchcardTests
 //
-//  Created by Oskar Hagberg on 2013-05-16.
-//  Copyright (c) 2013 Oskar Hagberg. All rights reserved.
+//  Created by Jon Gherardini on 12/16/16.
+//  Copyright © 2016 Oskar Hagberg. All rights reserved.
 //
 
-#import "OHPunchcardTests.h"
+#import <XCTest/XCTest.h>
+
+@interface OHPunchcardTests : XCTestCase
+
+@end
 
 @implementation OHPunchcardTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
-    
-    // Set-up code here.
+    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in OHPunchcardTests");
+- (void)testExample {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+}
+
+- (void)testPerformanceExample {
+    // This is an example of a performance test case.
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+    }];
 }
 
 @end
