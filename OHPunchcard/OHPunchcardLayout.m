@@ -12,6 +12,8 @@ NSString *const OHPunchcardElementKindRowTitle = @"OHPunchcardElementKindRowTitl
 
 @implementation OHPunchcardLayout
 
+#pragma mark - Initializers
+
 - (id)init
 {
     self = [super init];
@@ -25,6 +27,8 @@ NSString *const OHPunchcardElementKindRowTitle = @"OHPunchcardElementKindRowTitl
 {
 
 }
+
+#pragma mark - UICollectionViewLayout
 
 - (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect
 {

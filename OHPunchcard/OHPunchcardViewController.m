@@ -19,6 +19,8 @@
 
 @implementation OHPunchcardViewController
 
+#pragma mark - Initializers
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,6 +30,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,7 +40,6 @@
     self.punchcardView.dataSource = self;
     self.punchcardView.cellSize = 30.0; //To fit the toolbar
     self.punchcardView.backgroundColor = [UIColor whiteColor];
-//    self.punchcardView.columns = 1;
     NSMutableArray* data = [NSMutableArray array];
     NSMutableArray* colors = [NSMutableArray array];
     for (int i = 0; i<12; i++) {
@@ -52,12 +55,50 @@
     }
     self.data = data;
     self.colors = colors;
+    
+}
 
+#pragma mark - Helper methods
+
+#define ARC4RANDOM_MAX      0x100000000
+- (UIColor*)randomHSBColor
+{
+    double h = ranged_random(0.2, 0.2);
+    double s = ranged_random(0.0, 0.4);
+    double b = ranged_random(0.8, 1.0);
+    return [UIColor colorWithHue:h saturation:s brightness:b alpha:1.0];
+}
+
+#pragma mark - Storyboard target/action callbacks
+
+- (IBAction)paddingChanged:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self.punchcardView setPadding:2 animated:YES];
+    } else {
+        [self.punchcardView setPadding:10 animated:YES];
+    }
+}
+
+- (IBAction)cellSizeChanged:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self.punchcardView setCellSize:12.0 animated:YES];
+    } else if (sender.selectedSegmentIndex == 1) {
+        [self.punchcardView setCellSize:32.0 animated:YES];
+    } else {
+        [self.punchcardView setCellSize:44.0 animated:YES];
+    }
+}
+
+- (IBAction)columnCountChanged:(UISegmentedControl *)sender {
+    // Linking the column count to the text on the button is not the best,
+    // but it's fine enough for a demo app
+    NSInteger columnCount = [[[[sender titleForSegmentAtIndex:[sender selectedSegmentIndex]] componentsSeparatedByString:@": "] lastObject] integerValue];
+    self.punchcardView.columns = columnCount > 0 ? columnCount : 1;
 }
 
 #pragma mark - OHPunchcardDataSource
 
-- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForColumn:(NSInteger)column
+- (NSString*)punchcardView:(OHPunchcardView *)punchcardView titleForColumn:(NSInteger)column
 {
     static NSArray* titles = nil;
     static dispatch_once_t onceToken;
@@ -67,7 +108,7 @@
     return column < titles.count ? titles[column] : nil;
 }
 //
-//- (NSString*)punchcardView:(OHPunchcardView *)punchardView titleForRow:(NSInteger)row
+//- (NSString*)punchcardView:(OHPunchcardView *)punchcardView titleForRow:(NSInteger)row
 //{
 //    static NSArray* titles = nil;
 //    static dispatch_once_t onceToken;
@@ -82,52 +123,14 @@
 //    return [NSString stringWithFormat:@"%d,%d", indexPath.section, indexPath.row];
 //}
 
-- (float)punchcardView:(OHPunchcardView*)punchardView fractionForIndexPath:(NSIndexPath*)indexPath
+- (float)punchcardView:(OHPunchcardView*)punchcardView fractionForItemAtIndexPath:(NSIndexPath*)indexPath
 {
     return [self.data[indexPath.section][indexPath.row] floatValue];
 }
 
-- (UIColor*)punchcardView:(OHPunchcardView*)punchardView colorForIndexPath:(NSIndexPath*)indexPath
+- (UIColor*)punchcardView:(OHPunchcardView*)punchcardView colorForItemAtIndexPath:(NSIndexPath*)indexPath
 {
     return self.colors[indexPath.section][indexPath.row];
 }
 
-
-
-#define ARC4RANDOM_MAX      0x100000000
-- (UIColor*)randomHSBColor
-{
-    double h = ranged_random(0.2, 0.2);
-    double s = ranged_random(0.0, 0.4);
-    double b = ranged_random(0.8, 1.0);
-    return [UIColor colorWithHue:h saturation:s brightness:b alpha:1.0];
-}
-
-- (IBAction)paddingChanged:(UISegmentedControl*)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        [self.punchcardView setPadding:2 animated:YES];
-//        self.punchcardView.padding = 2;
-    } else {
-        [self.punchcardView setPadding:10 animated:YES];
-//        self.punchcardView.padding = 10;
-    }
-}
-
-- (IBAction)cellSizeChanged:(UISegmentedControl*)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        [self.punchcardView setCellSize:12.0 animated:YES];
-//        self.punchcardView.cellSize = 12.0;
-    } else if (sender.selectedSegmentIndex == 1) {
-        [self.punchcardView setCellSize:32.0 animated:YES];
-//        self.punchcardView.cellSize = 32.0;
-    } else {
-        [self.punchcardView setCellSize:44.0 animated:YES];
-//        self.punchcardView.cellSize = 44.0;
-    }
-
-}
-
-- (IBAction)columnCountChanged:(id)sender {
-    self.punchcardView.columns = 1;
-}
 @end

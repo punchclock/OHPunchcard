@@ -12,27 +12,6 @@
 @protocol OHPunchcardDataSource;
 @protocol OHPunchcardDelegate;
 
-@protocol OHPunchcardDataSource <NSObject>
-
-- (float)punchcardView:(OHPunchcardView*)punchardView fractionForIndexPath:(NSIndexPath*)indexPath;
-
-@optional
-- (UIColor*)punchcardView:(OHPunchcardView*)punchardView colorForIndexPath:(NSIndexPath*)indexPath;
-- (NSString*)punchcardView:(OHPunchcardView*)punchcardView titleForPopupAtIndexPath:(NSIndexPath*)indexPath;
-- (NSString*)punchcardView:(OHPunchcardView*)punchardView titleForColumn:(NSInteger)column;
-- (NSString*)punchcardView:(OHPunchcardView*)punchardView titleForRow:(NSInteger)row;
-
-@end
-
-@protocol OHPunchcardDelegate <NSObject>
-
-@optional
-- (void)punchcardView:(OHPunchcardView*)punchardView didSelectItemAtIndexPath:(NSIndexPath*)indexPath;
-- (void)punchcardView:(OHPunchcardView*)punchardView didDeselectItemAtIndexPath:(NSIndexPath*)indexPath;
-
-
-@end
-
 @interface OHPunchcardView : UIView
 
 @property (nonatomic, weak) id<OHPunchcardDataSource> dataSource;
@@ -49,6 +28,28 @@
 
 - (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath;
 
+@end
+
+
+#pragma mark - Protocol definitions
+
+@protocol OHPunchcardDataSource <NSObject>
+
+- (float)punchcardView:(OHPunchcardView*)punchcardView fractionForItemAtIndexPath:(NSIndexPath*)indexPath;
+
+@optional
+- (UIColor*)punchcardView:(OHPunchcardView*)punchcardView colorForItemAtIndexPath:(NSIndexPath*)indexPath;
+- (NSString*)punchcardView:(OHPunchcardView*)punchcardView titleForPopupAtIndexPath:(NSIndexPath*)indexPath;
+- (NSString*)punchcardView:(OHPunchcardView*)punchcardView titleForColumn:(NSInteger)column;
+- (NSString*)punchcardView:(OHPunchcardView*)punchcardView titleForRow:(NSInteger)row;
+
+@end
+
+@protocol OHPunchcardDelegate <NSObject>
+
+@optional
+- (void)punchcardView:(OHPunchcardView*)punchcardView didSelectItemAtIndexPath:(NSIndexPath*)indexPath;
+- (void)punchcardView:(OHPunchcardView*)punchcardView didDeselectItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

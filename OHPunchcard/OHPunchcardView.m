@@ -9,222 +9,13 @@
 #import "OHPunchcardView.h"
 #import "OHPunchcardLayout.h"
 #import "OHPunchcardPopup.h"
+#import "OHPunchcardDefaultCell.h"
+#import "OHPunchcardColumnLegend.h"
+#import "OHPunchcardRowLegend.h"
 
 static NSString* const OHPunchcardViewDefaultCellIdentifier = @"OHPunchcardViewDefaultCellIdentifier";
 static NSString* const OHPunchcardViewColumnLegendViewIdentifier = @"OHPunchcardViewColumnLegendViewIdentifier";
 static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardViewRowLegendViewIdentifier";
-
-@interface OHPunchcardDefaultCell : UICollectionViewCell
-
-@property (nonatomic) CGFloat diameter; // 0.0 - 1.0
-@property (nonatomic, copy) UIColor* fillColor;
-@property (nonatomic, copy) UIColor* strokeColor;
-
-@end
-
-@implementation OHPunchcardDefaultCell
-
-//@synthesize label = _label;
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setDiameter:(CGFloat)diameter
-{
-    _diameter = diameter;
-    [self setNeedsDisplay];
-}
-
-- (void)setFillColor:(UIColor *)fillColor
-{
-    _fillColor = [fillColor copy];
-    [self setNeedsDisplay];
-}
-
-- (void)setStrokeColor:(UIColor *)strokeColor
-{
-    _strokeColor = [strokeColor copy];
-    [self setNeedsDisplay];
-}
-
-- (void)setup
-{
-    self.opaque = NO;
-    self.clipsToBounds = YES;
-    self.strokeColor = [UIColor whiteColor];
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    
-    CGFloat edge = MIN(rect.size.width, rect.size.height);
-    CGRect ellipseRect = CGRectZero;
-    if (self.diameter == 1.0) {
-        ellipseRect = rect;
-    } else {
-        CGFloat inset = (edge - self.diameter * edge) / 2.0;
-        inset = floorf(inset) + 1.0;
-        ellipseRect = CGRectInset(rect, inset, inset);
-    }
-    
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    CGContextClearRect(c, rect);
-
-    //Debug
-//    CGContextSetFillColorWithColor(c, [UIColor whiteColor].CGColor);
-//    CGContextFillRect(c, rect);
-
-    CGContextSetFillColorWithColor(c, self.fillColor.CGColor);
-    CGContextFillEllipseInRect(c, ellipseRect);
-    
-    CGContextSetLineWidth(c, 1);
-    CGContextSetStrokeColorWithColor(c, self.strokeColor.CGColor);
-    CGContextStrokeEllipseInRect(c, ellipseRect);
-    
-}
-
-- (void)willTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout
-{
-    //    if ([newLayout isKindOfClass:[OHCalendarWeekLayout class]]) {
-    //        self.circle = NO;
-    //    } else {
-    //        self.circle = YES;
-    //    }
-    [self setNeedsDisplay];
-}
-
-@end
-
-@interface OHPunchcardColumnLegend : UICollectionReusableView
-
-@property (nonatomic) CGFloat inset;
-@property (nonatomic) CGFloat cellSize;
-@property (nonatomic) CGFloat padding;
-@property (nonatomic) NSInteger columns;
-@property (nonatomic, strong) NSArray* labels;
-
-@end
-
-@implementation OHPunchcardColumnLegend
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup
-{
-    self.opaque = NO;
-    self.clipsToBounds = YES;
-    self.backgroundColor = [UIColor clearColor];
-}
-
-- (void)setColumns:(NSInteger)columns
-{
-    if (_columns != columns) {
-        _columns = columns;
-        for (UILabel* label in self.labels) {
-            [label removeFromSuperview];
-        }
-        NSMutableArray* labels = [NSMutableArray array];
-        for (int i = 0; i<columns; i++) {
-            UILabel* label = [[UILabel alloc] init];
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = [UIColor whiteColor];
-            label.backgroundColor = [UIColor clearColor];
-            [labels addObject:label];
-            [self addSubview:label];
-        }
-        self.labels = labels;
-        [self setNeedsLayout];
-    }
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    CGFloat x = self.inset;
-    for (UILabel* label in self.labels) {
-        label.frame = CGRectMake(x, 0.0, self.cellSize, self.bounds.size.height);
-        x += self.cellSize + self.padding;
-    }
-}
-
-@end
-
-@interface OHPunchcardRowLegend : UICollectionReusableView
-
-@property (nonatomic, strong) UILabel* label;
-
-@end
-
-@implementation OHPunchcardRowLegend
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup
-{
-    self.opaque = NO;
-    self.clipsToBounds = YES;
-    self.backgroundColor = [UIColor clearColor];
-    
-    UILabel* label = [[UILabel alloc] initWithFrame:self.bounds];
-    label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    label.textAlignment = NSTextAlignmentRight;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:12.0];
-    [self addSubview:label];
-    
-    self.label = label;
-    
-}
-
-@end
 
 @interface OHPunchcardView () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -236,6 +27,8 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 @end
 
 @implementation OHPunchcardView
+
+#pragma mark - Initializers
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -290,20 +83,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     self.collectionView = collectionView;
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    if (!CGRectEqualToRect(self.bounds, self.layoutBounds)) {
-        self.layoutBounds = self.bounds;
-        [self configureLayout:self.layout];
-    }
-}
-
-- (void)setBackgroundColor:(UIColor *)backgroundColor
-{
-    [super setBackgroundColor:backgroundColor];
-    [self.collectionView setBackgroundColor:backgroundColor];
-}
+#pragma mark - Property getters/setters
 
 - (void)setColumns:(NSUInteger)columns
 {
@@ -352,6 +132,8 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     }
 }
 
+#pragma mark - Helper methods
+
 - (void)configureLayout:(OHPunchcardLayout*)layout
 {
     CGFloat contentWidth = self.columns * self.cellSize + (self.columns - 1) * self.padding;
@@ -364,7 +146,6 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     layout.sectionInset = UIEdgeInsetsMake(self.padding/2, inset, self.padding/2, inset);
     [layout invalidateLayout];
 }
-
 
 - (NSString*)defaultTitleForColumn:(NSInteger)column
 {
@@ -399,15 +180,17 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     return frame;
 }
 
+#pragma mark - Popup management
+
 - (void)showPopupForIndexPath:(NSIndexPath*)indexPath
 {
     if (self.popup) {
         [self.popup hide];
     }
-    float diameter = [self.dataSource punchcardView:self fractionForIndexPath:indexPath];
+    float diameter = [self.dataSource punchcardView:self fractionForItemAtIndexPath:indexPath];
     UIColor* fillColor = [UIColor whiteColor];
-    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForIndexPath:)]) {
-        fillColor = [self.dataSource punchcardView:self colorForIndexPath:indexPath];
+    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForItemAtIndexPath:)]) {
+        fillColor = [self.dataSource punchcardView:self colorForItemAtIndexPath:indexPath];
     }
     NSString* title = [NSString stringWithFormat:@"%.02f", diameter];
     if ([self.dataSource respondsToSelector:@selector(punchcardView:titleForPopupAtIndexPath:)]) {
@@ -433,6 +216,8 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     
 }
 
+#pragma mark - Gesture recognizers
+
 - (void)tap:(UITapGestureRecognizer*)sender
 {
     if (sender.state == UIGestureRecognizerStateEnded){
@@ -441,7 +226,24 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     }
 }
 
-#pragma mark - UICollectionViewDataSource implementation
+#pragma mark - UICollectionView
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if (!CGRectEqualToRect(self.bounds, self.layoutBounds)) {
+        self.layoutBounds = self.bounds;
+        [self configureLayout:self.layout];
+    }
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    [super setBackgroundColor:backgroundColor];
+    [self.collectionView setBackgroundColor:backgroundColor];
+}
+
+#pragma mark - UICollectionViewDataSource
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
@@ -467,13 +269,13 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 {
     OHPunchcardDefaultCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:OHPunchcardViewDefaultCellIdentifier forIndexPath:indexPath];
     UIColor* fillColor = [UIColor whiteColor];
-    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForIndexPath:)]) {
-        fillColor = [self.dataSource punchcardView:self colorForIndexPath:indexPath];
+    if ([self.dataSource respondsToSelector:@selector(punchcardView:colorForItemAtIndexPath:)]) {
+        fillColor = [self.dataSource punchcardView:self colorForItemAtIndexPath:indexPath];
     }
     cell.fillColor = fillColor;
     cell.strokeColor = self.strokeColor;
     
-    float diameter = [self.dataSource punchcardView:self fractionForIndexPath:indexPath];
+    float diameter = [self.dataSource punchcardView:self fractionForItemAtIndexPath:indexPath];
     cell.diameter = diameter;
     
     return cell;
@@ -518,7 +320,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     return nil;
 }
 
-#pragma mark UICollectionViewDelegate implementation
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
