@@ -13,8 +13,4 @@
 @property (weak, nonatomic) IBOutlet OHPunchcardView *punchcardView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
-- (IBAction)paddingChanged:(UISegmentedControl *)sender;
-- (IBAction)cellSizeChanged:(UISegmentedControl *)sender;
-- (IBAction)columnCountChanged:(UISegmentedControl *)sender;
-
 @end
