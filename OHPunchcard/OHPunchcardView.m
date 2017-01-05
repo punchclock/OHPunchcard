@@ -13,11 +13,25 @@
 #import "OHPunchcardColumnLegend.h"
 #import "OHPunchcardRowLegend.h"
 
+#define OHPUNCHCARD_VIEW_DEFAULT_COLUMNS 7
+#define OHPUNCHCARD_VIEW_DEFAULT_PADDING 2.0
+
+// A default value only; recomputed dynamically later
+#define OHPUNCHCARD_VIEW_DEFAULT_CELL_SIZE 32.0
+
+// This is the minimum inset of the view from the edge of the frame
+#define OHPUNCHCARD_VIEW_DEFAULT_MINIMUM_INSET 10.0
+
 static NSString* const OHPunchcardViewDefaultCellIdentifier = @"OHPunchcardViewDefaultCellIdentifier";
 static NSString* const OHPunchcardViewColumnLegendViewIdentifier = @"OHPunchcardViewColumnLegendViewIdentifier";
 static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardViewRowLegendViewIdentifier";
 
 @interface OHPunchcardView () <UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (nonatomic, readwrite) NSUInteger columns;
+@property (nonatomic, readwrite) OHPunchcardViewRowCount rows;
+@property (nonatomic, readwrite) CGFloat cellSize;
+@property (nonatomic, readwrite) CGFloat padding;
 
 @property (nonatomic, strong) UICollectionView* collectionView;
 @property (nonatomic) CGRect layoutBounds;
@@ -27,6 +41,7 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 @end
 
 @implementation OHPunchcardView
+
 
 #pragma mark - Initializers
 
@@ -50,10 +65,10 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 
 - (void)setup
 {
-    _columns = 7;
-    _rows = 12;
-    _padding = 2.0;
-    _cellSize = 32.0;
+    _columns = OHPUNCHCARD_VIEW_DEFAULT_COLUMNS;
+    _rows = OHPunchcardView12Rows;
+    _padding = OHPUNCHCARD_VIEW_DEFAULT_PADDING;
+    _cellSize = OHPUNCHCARD_VIEW_DEFAULT_CELL_SIZE;
     _layoutBounds = CGRectZero;
     
     self.backgroundColor = [UIColor whiteColor];
@@ -85,57 +100,63 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
 
 #pragma mark - Property getters/setters
 
-- (void)setColumns:(NSUInteger)columns
-{
-    if (_columns != columns) {
-        _columns = columns;
-        [self.collectionView reloadData];
-        return;
-    }
-}
-
-- (void)setPadding:(CGFloat)padding
-{
-    if (_padding != padding) {
-        _padding = padding;
-        [self configureLayout:self.layout];
-    }
-}
-
-- (void)setPadding:(CGFloat)padding animated:(BOOL)animated
-{
-    if (_padding != padding) {
-        _padding = padding;
-        OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
-        self.layout = layout;
-        [self configureLayout:layout];
-        [self.collectionView setCollectionViewLayout:layout animated:animated];
-    }
-}
-
-- (void)setCellSize:(CGFloat)cellSize
-{
-    if (_cellSize != cellSize) {
-        _cellSize = cellSize;
-        [self configureLayout:self.layout];
-    }
-}
-
-- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated
-{
-    if (_cellSize != cellSize) {
-        _cellSize = cellSize;
-        OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
-        self.layout = layout;
-        [self configureLayout:layout];
-        [self.collectionView setCollectionViewLayout:layout animated:animated];
-    }
-}
+// Leaving these here, since they may be needed later for handling autorotation
+// TODO: Determine if these are still needed
+//- (void)setColumns:(NSUInteger)columns
+//{
+//    if (_columns != columns) {
+//        _columns = columns;
+//        [self.collectionView reloadData];
+//        return;
+//    }
+//}
+//
+//- (void)setPadding:(CGFloat)padding
+//{
+//    if (_padding != padding) {
+//        _padding = padding;
+//        [self configureLayout:self.layout];
+//    }
+//}
+//
+//- (void)setPadding:(CGFloat)padding animated:(BOOL)animated
+//{
+//    if (_padding != padding) {
+//        _padding = padding;
+//        OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+//        self.layout = layout;
+//        [self configureLayout:layout];
+//        [self.collectionView setCollectionViewLayout:layout animated:animated];
+//    }
+//}
+//
+//- (void)setCellSize:(CGFloat)cellSize
+//{
+//    if (_cellSize != cellSize) {
+//        _cellSize = cellSize;
+//        [self configureLayout:self.layout];
+//    }
+//}
+//
+//- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated
+//{
+//    if (_cellSize != cellSize) {
+//        _cellSize = cellSize;
+//        OHPunchcardLayout* layout = [[OHPunchcardLayout alloc] init];
+//        self.layout = layout;
+//        [self configureLayout:layout];
+//        [self.collectionView setCollectionViewLayout:layout animated:animated];
+//    }
+//}
 
 #pragma mark - Helper methods
 
 - (void)configureLayout:(OHPunchcardLayout*)layout
 {
+    CGFloat minimumInset = OHPUNCHCARD_VIEW_DEFAULT_MINIMUM_INSET;
+    CGFloat newCellWidth = (self.bounds.size.width - (2 * minimumInset) - (self.columns) * self.padding) / (self.columns + 1);
+    CGFloat newCellHeight = (self.bounds.size.height - (2 * minimumInset) - (self.rows) * self.padding) / (self.rows + 1);
+    self.cellSize = MIN(newCellWidth, newCellHeight);
     CGFloat contentWidth = self.columns * self.cellSize + (self.columns - 1) * self.padding;
     layout.minimumLineSpacing = 0.0;
     layout.minimumInteritemSpacing = self.padding;
@@ -167,7 +188,12 @@ static NSString* const OHPunchcardViewRowLegendViewIdentifier = @"OHPunchcardVie
     static NSArray* titles = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        titles = @[@"0", @"2", @"4", @"6", @"8", @"10", @"12", @"14", @"16", @"18", @"20", @"22"];
+        NSString *s = @"0";
+        int step = self.rows == OHPunchcardView12Rows ? 2 : 1;
+        for (int i = 1; i < self.rows; i++) {
+            s = [NSString stringWithFormat:@"%@ %i", s, i*step];
+        }
+        titles = [s componentsSeparatedByString:@" "];
     });
     return row < titles.count ? titles[row] : nil;
 }

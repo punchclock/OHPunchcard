@@ -12,19 +12,22 @@
 @protocol OHPunchcardDataSource;
 @protocol OHPunchcardDelegate;
 
+// Set the desired value in the setup method; 12 rows is the default
+typedef enum OHPunchcardViewRowCount : NSUInteger {
+    OHPunchcardView12Rows = 12, // For compressed view of 12 2-hour circles
+    OHPunchcardView24Rows = 24  // For GitHub-style 24 hour view
+} OHPunchcardViewRowCount;
+
 @interface OHPunchcardView : UIView
 
 @property (nonatomic, weak) id<OHPunchcardDataSource> dataSource;
 @property (nonatomic, weak) id<OHPunchcardDelegate> delegate;
 
-@property (nonatomic) NSUInteger columns;
-@property (nonatomic) NSUInteger rows;
-@property (nonatomic) CGFloat cellSize;
-@property (nonatomic) CGFloat padding;
+@property (nonatomic, readonly) NSUInteger columns;
+@property (nonatomic, readonly) OHPunchcardViewRowCount rows;
+@property (nonatomic, readonly) CGFloat cellSize;
+@property (nonatomic, readonly) CGFloat padding;
 @property (nonatomic, copy) UIColor* strokeColor;
-
-- (void)setPadding:(CGFloat)padding animated:(BOOL)animated;
-- (void)setCellSize:(CGFloat)cellSize animated:(BOOL)animated;
 
 - (CGRect)offsetFrameForCellAtIndexPath:(NSIndexPath*)indexPath;
 
